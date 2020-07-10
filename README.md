@@ -14,7 +14,7 @@ A Text and Voice Search-Based Depression Detection Model using social media data
 ## WebApp WalkThrough Video
 
 <video controls>
-  <source src="https://github.com/TechyNilesh/Depression_Detection_Projects_on_Voice_and_ActiGraph_data/blob/master/Dipression_Detection_Projects_Voice_smartwatch_data.mp4?raw=true" type="video/mp4">
+<source src="https://github.com/TechyNilesh/Depression_Detection_Projects_on_Voice_and_ActiGraph_data/blob/master/Dipression_Detection_Projects_Voice_smartwatch_data.mp4?raw=true" type="video/mp4">
 </video>
 
 ## Deployment  Link
