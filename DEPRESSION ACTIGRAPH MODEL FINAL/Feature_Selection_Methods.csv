@@ -1,0 +1,11 @@
+feature_idx,avg_score,feature_names
+"(5,)",0.9693055267642139,"('quantile1',)"
+"(0, 5)",0.9792722939506893,"('mean', 'quantile1')"
+"(0, 5, 10)",0.9838946145632473,"('mean', 'quantile1', 'fmean')"
+"(0, 5, 6, 10)",0.985338970786675,"('mean', 'quantile1', 'quantile3', 'fmean')"
+"(0, 4, 5, 6, 10)",0.9867835356115217,"('mean', 'skewness', 'quantile1', 'quantile3', 'fmean')"
+"(0, 4, 5, 6, 10, 14)",0.9869277834925875,"('mean', 'skewness', 'quantile1', 'quantile3', 'fmean', 'fcofvar')"
+"(0, 3, 4, 5, 6, 10, 14)",0.9871444421411372,"('mean', 'kurtosis', 'skewness', 'quantile1', 'quantile3', 'fmean', 'fcofvar')"
+"(0, 3, 4, 5, 6, 10, 11, 14)",0.9871443378404278,"('mean', 'kurtosis', 'skewness', 'quantile1', 'quantile3', 'fmean', 'fstd', 'fcofvar')"
+"(0, 3, 4, 5, 6, 10, 11, 12, 14)",0.9875776290623497,"('mean', 'kurtosis', 'skewness', 'quantile1', 'quantile3', 'fmean', 'fstd', 'fskewness', 'fcofvar')"
+"(0, 2, 3, 4, 5, 6, 10, 11, 12, 14)",0.9882276832335306,"('mean', 'var', 'kurtosis', 'skewness', 'quantile1', 'quantile3', 'fmean', 'fstd', 'fskewness', 'fcofvar')"
