@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block head %}
+<script>
+  var check = function () {
+    if (document.getElementById('password').value ==
+      document.getElementById('confirm_password').value) {
+      document.getElementById('message').style.color = 'green';
+      document.getElementById('message').innerHTML = 'Your Enter Password Matching';
+    } else {
+      document.getElementById('message').style.color = 'red';
+      document.getElementById('message').innerHTML = 'Your Enter Password Not Matching';
+    }
+  }
+  var test = function () {
+    var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+    if (reg.test(document.getElementById('email').value) == false) {
+      document.getElementById('emailHelp').style.color = 'red';
+      document.getElementById('emailHelp').innerHTML = 'Please Enter Valid Email Addresss';
+    }
+    else {
+      document.getElementById('emailHelp').style.color = 'green';
+      document.getElementById('emailHelp').innerHTML = 'Email Addresss is Valid';
+    }
+  }
+  var user_lower = function () {
+    var reg = /^([a-z0-9_])/;
+
+    if (reg.test(document.getElementById('username').value) == false) {
+      document.getElementById('userhelp').style.color = 'red';
+      document.getElementById('userhelp').innerHTML = 'Username Must Be Allow Only (Lowercase, Number and _ )';
+    }
+    else {
+      document.getElementById('userhelp').style.color = 'green';
+      document.getElementById('userhelp').innerHTML = 'Username Is Valid';
+    }
+  }
+</script>
+{% endblock %}
+{% block body %}
+<div class="container mt-1 d-flex justify-content-center">
+  <div class="card text-center mt-5">
+    <div class="card-header bg-primary text-white">
+      <h4 class="card-title bold">New People Register Here</h4>
+      <p class="font-weight-normal">Please enter valide information for user registration.</p>
+    </div>
+    <div class="card-body center">
+      <form class="text-center" action="{{ url_for('ragister')}}" method="POST">
+        <div class="row">
+          <div class="col">
+            <input type="text" name="firstname" id="firstname" class="form-control" placeholder="First name" required>
+          </div>
+          <div class="col">
+            <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Last name" required>
+          </div>
+        </div>
+        <div class="input-group mt-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">@</span>
+          </div>
+          <input type="text" name="username" id="username" class="form-control" placeholder="Enter Username"
+            aria-label="Username" aria-describedby="basic-addon1" onkeyup='user_lower();' required>
+        </div>
+        <small id="userhelp" class="form-text text-center font-weight-bold mt-2"></small>
+        <div class="form-group mt-3">
+          <input type="email" name="email" id="email" class="form-control" aria-describedby="emailHelp"
+            placeholder="Enter email" onkeyup='test();' required>
+          <small id="emailHelp" class="form-text text-center font-weight-bold  mt-2">We'll never share your email with
+            anyone else.</small>
+        </div>
+        <div class="form-group mt-3">
+          <input type="password" name="pass" id="password" class="form-control" id="exampleInputPassword1"
+            placeholder="Password" onkeyup='check();' required>
+        </div>
+        <div class="form-group mt-3">
+          <input type="password" name="confirm_pass" class="form-control" id="confirm_password"
+            placeholder="Confirm Password" onkeyup='check();' required>
+          <small id="message" class="form-text text-center font-weight-bold mt-2"></small>
+        </div>
+        <button type="submit" onclick="toggle_display()" class="btn btn-primary">Registration Now</button>
+        {% if success %}
+        <div class="alert alert-success mt-3" role="alert">
+          <strong>Welcome</strong>: {{success}} <a href="\" class="alert-link">Login here</a>
+        </div>
+        {% elif faild %}
+        <div class="alert alert-danger mt-3" role="alert">
+          <strong>Error</strong>: {{faild}}
+        </div>
+        {% endif %}
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

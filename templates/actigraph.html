@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block head %}
+
+<script type="application/javascript">
+$(document).on('change', '.custom-file-input', function (event) {
+    $(this).next('.custom-file-label').html(event.target.files[0].name);
+})
+function render_image(bring_image){
+            var url_for_request = 'ajaxImage'
+            $.ajax({url: url_for_request, success: function(result){
+                $("#bring_image").html(result);
+            }});
+        }
+</script>
+
+{% endblock %}
+{% block body %}
+{% if 'username' in session %}
+      <div class="container d-flex justify-content-center">
+            <!-- contenir end -->  
+            <div class="card text-center mt-5 mb-5 w-50">
+              <div class="card-header bg-primary text-white">
+                <h4 class="card-title bold">Actigraph Data Dipresstion Predication</h4>
+                <p class="font-weight-normal">Please enter valide information to predicte dipression state.</p>
+              </div>
+              <div class="card-body center">
+                <form class="mt-2" action="{{ url_for('actiPredict')}}" method="POST" enctype="multipart/form-data">
+                  <div class="row">
+                    <div class="col">
+                      <input type="text" name="first" id="first"  class="form-control" placeholder="First name">
+                    </div>
+                    <div class="col">
+                      <input type="text" name="last" id="last" class="form-control" placeholder="Last name">
+                    </div>
+                  </div>
+                  <div class="input-group mb-3 mt-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroupFileAddon01">CSV</span>
+                    </div>
+                    <div class="custom-file">
+                      <input type="file" name="file"  id="file" class="custom-file-input" id="custom-file-input" required>
+                      <label class="custom-file-label" id="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                  </div>
+                  <div class="alert alert-secondary" role="alert">
+                    Please upload file in this <a href="/static/data_formate.csv" class="alert-link">example file link</a> formate.
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-lg">Analyze Now</button>
+                  {% if data=="got_image" %}
+                  <figure class="figure mt-3">
+                   <div id="bring_image">
+                  <img src="/plot.png" alt="my plot" class="figure-img img-fluid rounded img-thumbnail" width="400" height="400">
+                  <figcaption class="figure-caption center font-weight-bold">1-Hour Activitiy Graph</figcaption>
+                     </div>
+                    </figure>
+                   {% endif %}
+                  {% if result == 0 %}
+                  <div class="alert alert-success mt-3" role="alert">
+                    Your Condition Is Normal
+                  </div>
+                  {% elif result == 1  %}
+                  <div class="alert alert-danger mt-3" role="alert">
+                    Your Condition Is Depressive      
+                  </div>
+                  {%endif%}
+                </form>
+          </div>
+        </div>
+           <!-- contenir end --> 
+           {%else%}
+           <div class="container mt-5 d-flex justify-content-center active">
+           <div class="alert alert-danger mt-5 w-50 " role="alert">
+             Please Login to access this page - <a href="/" class="alert-link">Click Here To LogIn</a>.
+           </div>
+         </div>
+           {% endif %}
+           {% endblock %}

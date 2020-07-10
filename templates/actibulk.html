@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block head %}
+
+<script type="application/javascript">
+$(document).on('change', '.custom-file-input', function (event) {
+    $(this).next('.custom-file-label').html(event.target.files[0].name);
+})
+</script>
+
+<style>
+table.dataframe, .dataframe th, .dataframe td {
+  border: none;
+  border-bottom: 1px solid #C8C8C8;
+  border-collapse: collapse;
+  text-align:left;
+  padding: 10px;
+  margin-bottom: 40px;
+  font-size: 0.9em;
+}
+</style>
+
+{% endblock %}
+{% block body %}
+{% if 'username' in session %}
+      <div class="container d-flex justify-content-center">
+            <!-- contenir end -->  
+            <div class="card text-center mt-4 mb-5">
+              <div class="card-header bg-primary text-white">
+                <h4 class="card-title bold">Dipression Actigraph Data Bulk Predication</h4>
+                <p class="font-weight-normal">Please Upload valide information to predicte dipression state.</p>
+              </div>
+              <div class="card-body center">
+                <form class="mt-2" action="{{ url_for('actibulkpredication')}}" enctype="multipart/form-data" method="POST">
+                  <div class="input-group mb-3 mt-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroupFileAddon01">CSV</span>
+                    </div>
+                    <div class="custom-file">
+                      <input type="file" name="file" id="file" class="custom-file-input" id="custom-file-input" required multiple>
+                      <label class="custom-file-label" id="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                  </div>
+                  <div class="alert alert-secondary" role="alert">
+                    Please upload file in this <a href="/static/data_formate.csv" class="alert-link">example file link</a> formate.
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-lg">Analyze Now</button>
+                </form>
+                {% if tables%}
+                <h5 class="mt-4 p-2 border rounded bg-success text-white">Your Data Result is Followings</h5>  
+                <div class="mt-3 d-flex justify-content-center">             
+            {% for table in tables %}            
+            {{ table|safe }}
+             {% endfor %}
+            </div>             
+             <a href="/static/acti_result.csv" class="btn btn-primary mt-3 btn-lg btn-block" class="alert-link" role="button" >DOWNLOAD ALL DATA IN CSV</a>
+             {%endif%}
+          </div>
+        </div>
+           <!-- contenir end --> 
+           {%else%}
+           <div class="container mt-5 d-flex justify-content-center active">
+           <div class="alert alert-danger mt-5 w-50 " role="alert">
+             Please Login to access this page - <a href="/" class="alert-link">Click Here To LogIn</a>.
+           </div>
+         </div>
+           {% endif %}
+           {% endblock %}

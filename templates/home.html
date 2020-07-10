@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block head %}
+{% endblock %}
+{% block body %}
+{% if 'username' in session %}
+      <!-- navbar end -->   
+      <div class="container mt-4">
+        <div class="row">
+          <div class="col-sm">
+          </div>
+          <div class="col-lg-15">
+
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="card">
+                  <img class="card-img-top" src="static/images/dipre.jfif?text=Image cap" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">Actigraph Data Dipression Predication</h5>
+                    <p class="card-text">In this we can eaisly detect anybody dipression issues through thire 1-hour actigraph data.</p>
+                    <a href="/actigraph" class="btn btn-primary">Detect Now</a>
+                    <a href="/actibulk" class="btn btn-primary ml-5 ">Detect BULK DATA Now</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="card">
+                  <img class="card-img-top" src="static/images/senti1.jpg?text=Image cap" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">Dipression Sentiment Analysis</h5>
+                    <p class="card-text">In this tool we can eaisly anaysis human sentiment through thire small text writing pattern.</p>
+                    <a href="/senti" class="btn btn-primary">Analysis Now</a>
+                    <a href="/sentibulk" class="btn btn-primary ml-5 ">Analysis BULK DATA Now</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm">
+          </div>
+        </div>
+      </div>
+      {%else%}
+      <div class="container mt-5 d-flex justify-content-center active">
+      <div class="alert alert-danger mt-5 w-50 " role="alert">
+        Please Login to access this page - <a href="/" class="alert-link">Click Here To LogIn</a>.
+      </div>
+    </div>
+      {% endif %}
+      {% endblock %}

@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% block head %}
+<script>
+  function myFunction() {
+    var x = document.getElementById("myInput");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  }
+  </script>
+{% endblock %}
+{% block body %}
+{% if 'username' in session %}
+{%- if request.path == "/userinfo" %}
+<div class="container mt-5 d-flex justify-content-center active">
+  <!-- contenir start -->
+  <div class="card text-center w-50">
+    <h5 class="card-header p-3 mb-2 bg-primary text-white">User Information</h5>
+    <div class="card-body">
+        {% for user in users %}
+        {% if user.username == session.username%}
+        <table id="user.username" class="table">
+                       <tbody>
+                    <tr class="p-3 mb-2 bg-secondary text-white">
+                      <th scope="col">Username</th>
+                      <th scope="col"><input class="form-control" type="text" value="{{ user.username }}"readonly></th>
+                    </tr>
+              <tr>
+                <th scope="row">Full Name</th>
+                <td><input class="form-control" type="text" value="{{ user.fullname }}" readonly></td>
+              </tr>
+              <tr>
+                <th scope="row">Email Address</th>
+                <td><input class="form-control" type="text" value="{{ user.email }}" readonly></td>
+              </tr>
+              <tr>
+                <th scope="row">Password</th>
+                <td><input class="form-control" onclick="myFunction()" id="myInput" type="password" value="{{ user.password }}" readonly><small id="emailHelp" class="form-text text-center text-danger font-weight-bold">Click Tab to View Passowrd</small></td>
+              </tr>
+              <tr>
+            </tbody>
+          </table>        
+            {% endif %}
+          {% endfor %}
+      <a href="/userupdatepage" class="btn btn-primary mt-1">Update Info</a>
+    <!-- contenir end -->
+  </div>
+  {% endif %}
+  {%- if request.path == "/userupdatepage"%}
+
+  <div class="container mt-5 d-flex justify-content-center active">
+    <!-- contenir start -->
+    <div class="card text-center w-50">
+      <h5 class="card-header p-3 mb-2 bg-primary text-white">User Information Update</h5>
+      <div class="card-body">
+        {% for user in users %}
+      {% if user.username == session.username%}
+          <form class="text-center" action="{{url_for('userupdate')}}" method="POST">
+          <table id="user.username" class="table">
+                         <tbody>
+                      <tr class="p-3 mb-2 bg-secondary text-white">
+                        <th scope="col">Username</th>
+                        <th scope="col"><input class="form-control" name="username" id="username" type="text" value="{{ user.username }}"readonly></th>
+                      </tr>
+                <tr>
+                  <th scope="row">Full Name</th>
+                  <td><input class="form-control" name="fullname" id="fullname" type="text" value="{{user.fullname}}"></td>
+                </tr>
+                <tr>
+                  <th scope="row">Email Address</th>
+                  <td><input class="form-control" name="email" id="email" type="text" value="{{user.email}}"></td>
+                </tr>
+                <tr>
+                  <th scope="row">Password</th>
+                  <td><input class="form-control" name="pass" id="pass" type="text" value="{{user.password}}"></td>
+                </tr>
+              </tbody>
+            </table> 
+            {% endif %}
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Update Now</button>
+            {% if success %}  
+    <div class="alert alert-success mt-5" role="alert">
+      <strong>Update</strong>: {{success}} <a href="/userinfo" class="alert-link">Go Back</a>
+    </div>
+    {%endif%}
+          </form> 
+      </div>
+
+      <!-- contenir end --> 
+    </div>
+
+  {% endif %}
+
+  {%- if request.path == "/userupdate" %}
+
+  <div class="container mt-5 d-flex justify-content-center active">
+    <!-- contenir start -->
+    <div class="card text-center w-50">
+      <h5 class="card-header p-3 mb-2 bg-primary text-white">User Information Update</h5>
+      <div class="card-body">
+        {% for user in users %}
+      {% if user.username == session.username%}
+          <form class="text-center" action="{{url_for('userupdate')}}" method="POST">
+          <table id="user.username" class="table">
+                         <tbody>
+                      <tr class="p-3 mb-2 bg-secondary text-white">
+                        <th scope="col">Username</th>
+                        <th scope="col"><input class="form-control" name="username" id="username" type="text" value="{{ user.username }}"readonly></th>
+                      </tr>
+                <tr>
+                  <th scope="row">Full Name</th>
+                  <td><input class="form-control" name="fullname" id="fullname" type="text" value="{{user.fullname}}"></td>
+                </tr>
+                <tr>
+                  <th scope="row">Email Address</th>
+                  <td><input class="form-control" name="email" id="email" type="text" value="{{user.email}}"></td>
+                </tr>
+                <tr>
+                  <th scope="row">Password</th>
+                  <td><input class="form-control" name="pass" id="pass" type="text" value="{{user.password}}"></td>
+                </tr>
+              </tbody>
+            </table> 
+            {% endif %}
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Update Now</button>
+            {% if success %}  
+    <div class="alert alert-success mt-3" role="alert">
+      <strong>Update</strong>: {{success}} <a href="/userinfo" class="alert-link">Go Back</a>
+    </div>
+    {%endif%}
+          </form> 
+      </div>
+
+      <!-- contenir end --> 
+    </div>
+    {% endif %}
+  
+  {%else%}
+  <div class="container mt-5 d-flex justify-content-center active">
+  <div class="alert alert-danger mt-5 w-50 " role="alert">
+    Please Login to access this page - <a href="/" class="alert-link">Click Here To LogIn</a>.
+  </div>
+</div>
+  {% endif %}
+{% endblock %}
+

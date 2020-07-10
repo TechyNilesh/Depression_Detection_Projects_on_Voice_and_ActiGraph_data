@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block head %}
+<script>
+  function startDictation() {
+
+    if (window.hasOwnProperty('webkitSpeechRecognition')) {
+
+      var recognition = new webkitSpeechRecognition();
+
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      recognition.lang = "en-US";
+      recognition.start();
+
+      recognition.onresult = function(e) {
+        document.getElementById('text').value
+                                 = e.results[0][0].transcript;
+        recognition.stop();
+        document.getElementById('form').submit();
+      };
+
+      recognition.onerror = function(e) {
+        recognition.stop();
+      }
+
+    }
+  }
+
+</script>
+{% endblock %}
+{% block body %}
+{% if 'username' in session %}
+      <div class="container d-flex justify-content-center">
+            <!-- contenir end -->  
+            <div class="card text-center mt-5">
+              <div class="card-header bg-primary text-white">
+                <h4 class="card-title bold">Sntiment Analysis of Dipresstion Predication</h4>
+                <p class="font-weight-normal">Please enter valide information to predicte dipression state.</p>
+              </div>
+              <div class="card-body justify-content-center">
+                <form class="mt-2" id="form" action="{{ url_for('sentiPredict')}}" method="POST">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Enter Text</span>
+                    </div>
+                    {% if text%}
+                    <textarea name="text" id="text" class="form-control" aria-label="With textarea" placeholder="{{text}}" x-webkit-speech></textarea>
+                    {% else %}
+                    <textarea name="text" id="text" class="form-control" aria-label="With textarea" placeholder="Enter Your Text Here" x-webkit-speech></textarea>
+                    {%endif%}
+                  </div>
+                  <div class="align-self-center mt-2">
+                    <img onclick="startDictation();this.src='static/images/voice_ani.gif';" id="imgClickAndChange" class="mt-3" src="static/images/voice_input.png" width="60" height="60"/>
+                  </div>
+                    <div class="align-self-center mt-2">
+                  <button type="submit" class="btn btn-primary btn-lg mt-3">Analyze Now</button>
+                  </div>
+                  {% if result == 1 %}
+                  <div id="normal" class="alert alert-success mt-3 readIt" role="alert">
+                    Your Statment Is Normal
+                  </div>              
+                  {% elif result == 0  %}
+                  <div id="Depressive" class="alert alert-danger mt-3" role="alert">
+                   Your Statment Is Depressive
+                  </div>
+                  {%endif%}
+                </form>
+          </div>
+        </div>
+           <!-- contenir end --> 
+           {%else%}
+           <div class="container mt-5 d-flex justify-content-center active">
+           <div class="alert alert-danger mt-5 w-50 " role="alert">
+             Please Login to access this page - <a href="/" class="alert-link">Click Here To LogIn</a>.
+           </div>
+         </div>
+           {% endif %}
+           {% endblock %}
