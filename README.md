@@ -15,7 +15,7 @@ A Text and Voice Search-Based Depression Detection Model using social media data
 ![](https://github.com/TechyNilesh/Depression_Detection_Projects_on_Voice_and_ActiGraph_data/blob/master/Dipression_Detection_Projects_Voice_smartwatch_data.gif?raw=true)
 
 ## Deployment  Link
-https://depression-detection-app.herokuapp.com/about
+https://depression-detection-app.herokuapp.com/
 
 ### Please do ⭐ the repository, if it helped you in anyway.
 
